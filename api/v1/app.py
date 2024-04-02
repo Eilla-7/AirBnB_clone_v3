@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """code to start the api"""
 
-from os import getenv
+import os
 from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
