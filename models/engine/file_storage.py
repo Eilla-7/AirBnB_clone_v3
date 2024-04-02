@@ -13,7 +13,7 @@ from models.state import State
 from models.user import User
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-        "Place": Place, "Review": Review, "State": State, "User": User}
+           "Place": Place, "Review": Review, "State": State, "User": User}
 
 
 class FileStorage:
@@ -55,7 +55,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception:
             pass
 
     def get(self, cls, id):
@@ -66,11 +66,11 @@ class FileStorage:
             if id == str(obj.id):
                 return obj
 
-        return None   
+        return None
 
     def count(self, cls=None):
         """method that count the number of objects"""
-        if cls == None:
+        if cls is None:
             return len(self.all())
         else:
             return len(self.all(cls))
