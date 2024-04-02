@@ -13,7 +13,7 @@ from models.state import State
 from models.user import User
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
+        "Place": Place, "Review": Review, "State": State, "User": User}
 
 
 class FileStorage:
@@ -57,6 +57,23 @@ class FileStorage:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
         except:
             pass
+
+    def get(self, cls, id):
+        """Returns the object based on the class and its ID"""
+        all_cls = self.all(cls)
+
+        for obj in all_cls.values():
+            if id == str(obj.id):
+                return obj
+
+        return None   
+
+    def count(self, cls=None):
+        """method that count the number of objects"""
+        if cls == None:
+            return len(self.all())
+        else:
+            return len(self.all(cls))
 
     def delete(self, obj=None):
         """delete obj from __objects if it’s inside"""
